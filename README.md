@@ -18,11 +18,12 @@ OpenAlgo is an open-source, Flask-based Python application designed to bridge th
 For detailed installation instructions, please refer to [INSTALL.md](INSTALL.md)
 
 ## What is OpenAlgo?
-[![What is OpenAlgo](https://img.youtube.com/vi/Afthm49vtAA/0.jpg)](https://www.youtube.com/watch?v=Afthm49vtAA "Watch the OpenAlgo Tutorial Video")
+[![What is OpenAlgo](https://img.youtube.com/vi/kAS3jTb3OkI/0.jpg)](https://www.youtube.com/watch?v=kAS3jTb3OkI "Watch the OpenAlgo Tutorial Video")
 
 ## Supported Brokers
 
 - **5paisa**
+- **5paisa (XTS)**
 - **AliceBlue**
 - **AngelOne**
 - **Dhan**
@@ -30,9 +31,13 @@ For detailed installation instructions, please refer to [INSTALL.md](INSTALL.md)
 - **Flattrade**
 - **Fyers**
 - **ICICI Direct**
+- **Jainam (Retail)**
+- **Jainam (Dealer)**
 - **Kotak** 
+- **Paytm**
 - **Shoonya**
 - **Upstox**
+- **Wisdom Capital**
 - **Zebu**
 - **Zerodha**
 
@@ -81,7 +86,7 @@ For detailed installation instructions, please refer to [INSTALL.md](INSTALL.md)
   - Detailed request/response analysis
   - Comprehensive error detection
   - Dedicated garden theme for better focus
-  - See [Analyzer.md](Analyzer.md) for detailed documentation
+  - See [Analyzer.md](docs/Analyzer.md) for detailed documentation
 
 - **Comprehensive Integration**: Seamlessly connect with Amibroker, Tradingview, Excel, and Google Spreadsheets for smooth data and strategy transition.
 
