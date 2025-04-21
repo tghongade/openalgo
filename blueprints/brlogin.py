@@ -286,6 +286,31 @@ def broker_callback(broker,para=None):
          print(f'The request token is {request_token}')
          auth_token, error_message = auth_function(request_token)
 
+    elif broker == 'pocketful':
+        # Handle the OAuth2 authorization code from the callback
+        auth_code = request.args.get('code')
+        state = request.args.get('state')
+        error = request.args.get('error')
+        error_description = request.args.get('error_description')
+        
+        # Check if there was an error in the OAuth process
+        if error:
+            error_msg = f"OAuth error: {error}. {error_description if error_description else ''}"
+            print(error_msg)
+            return handle_auth_failure(error_msg, forward_url='broker.html')
+        
+        # Check if authorization code was provided
+        if not auth_code:
+            error_msg = "Authorization code not provided"
+            print(error_msg)
+            return handle_auth_failure(error_msg, forward_url='broker.html')
+            
+        print(f'Received authorization code: {auth_code}')
+        # Exchange auth code for access token and fetch client_id
+        auth_token, feed_token, user_id, error_message = auth_function(auth_code, state)
+        forward_url = 'broker.html'
+        
+
     else:
         code = request.args.get('code') or request.args.get('request_token')
         print(f'The code is {code}')
@@ -301,8 +326,8 @@ def broker_callback(broker,para=None):
         if broker == 'dhan':
             auth_token = f'{auth_token}'
         
-        # For compositedge, we have the user_id from authenticate_broker
-        if broker == 'compositedge':
+        # For compositedge and pocketful, we have the user_id from authenticate_broker
+        if broker == 'compositedge' or broker == 'pocketful':
             # Pass the feed token and user_id to handle_auth_success
             return handle_auth_success(auth_token, session['user'], broker, feed_token=feed_token, user_id=user_id)
         else:
