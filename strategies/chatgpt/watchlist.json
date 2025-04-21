@@ -1,0 +1,80 @@
+{
+    "stocks": [
+        {
+            "symbol": "ZENSARTECH",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "SYRMA",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "JINDRILL",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "SHYAMMETL",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "MARINE",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "STOVEKRAFT",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "DCW",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "PRITIKAUTO",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "SHILCTECH",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "SASKEN",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "MAXHEALTH",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "BALAMINES",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "ATUL",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "WEBELSOLAR",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "DRAGARWQ",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "ZFSTEERING",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "WEL",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "SALZERELEC",
+            "exchange": "NSE"
+        },
+        {
+            "symbol": "BAJAJELEC",
+            "exchange": "NSE"
+        }
+    ]
+}

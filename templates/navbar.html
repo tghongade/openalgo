@@ -63,6 +63,12 @@
                     API Analyzer
                 </a>
             </li>
+            <li>
+                <a href="{{ url_for('watchlist_page') }}"
+                   class="text-base hover:bg-base-200 {{ 'active' if request.endpoint == 'watchlist_page' }}">
+                    Watchlist
+                </a>
+            </li>
         </ul>
     </div>
 

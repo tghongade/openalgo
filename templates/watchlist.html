@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mx-auto mt-8">
+    <h1 class="text-2xl font-bold mb-6">My Watchlist</h1>
+    <div class="card bg-base-100 shadow-lg overflow-x-auto">
+        <div class="card-body p-0">
+            <table class="table table-zebra w-full">
+                <thead class="table-header">
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Exchange</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="watchlist-table-body">
+                    {% for stock in watchlist %}
+                    <tr data-symbol="{{ stock.symbol }}" data-exchange="{{ stock.exchange }}">
+                        <td>{{ stock.symbol }}</td>
+                        <td>{{ stock.exchange }}</td>
+                        <td>
+                            <button class="btn btn-error btn-xs" onclick="removeFromWatchlist('{{ stock.symbol }}', '{{ stock.exchange }}', this)">Remove</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+function removeFromWatchlist(symbol, exchange, btn) {
+    if (!confirm('Remove ' + symbol + ' from watchlist?')) return;
+    btn.disabled = true;
+    fetch('/watchlist/api/remove', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({symbol, exchange})
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            // Remove row from table
+            const row = btn.closest('tr');
+            row.parentNode.removeChild(row);
+        } else {
+            alert('Failed to remove: ' + (data.error || 'Unknown error'));
+            btn.disabled = false;
+        }
+    })
+    .catch(err => {
+        alert('Failed to remove: ' + err);
+        btn.disabled = false;
+    });
+}
+</script>
+{% endblock %}

@@ -1,7 +1,8 @@
 venopenalgo
-.env
+# .env (temporarily un-ignored for Cascade access)
+# .env
 openalgo.db
-.env
+# .env
 .flaskenv
 *.pyc
 __pycache__/
@@ -28,7 +29,7 @@ checkpoint.txt
 !symbols.csv
 
 # Environments 
-.env 
+# .env 
 .venv 
 env/ 
 venv/ 

@@ -82,6 +82,7 @@
                         <th class="sortable" data-sort="brexchange">Broker Exchange</th>
                         <th class="sortable" data-sort="token">Token</th>
                         <th class="sortable" data-sort="lotsize">Lot Size</th>
+                        <th>Add to Watchlist</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -103,6 +104,14 @@
                         <td><div class="badge badge-ghost">{{ row.brexchange }}</div></td>
                         <td class="token-cell">{{ row.token }}</td>
                         <td class="numeric-cell">{{ row.lotsize or '-' }}</td>
+                        <td>
+                            {% set already_added = (row.symbol, row.exchange) in watchlist_set %}
+                            <button class="btn btn-primary btn-xs"
+                                onclick='addToWatchlist({{ row | tojson | safe }}, this)'
+                                {% if already_added %}disabled{% endif %}>
+                                {% if already_added %}Already in Watchlist{% else %}Add{% endif %}
+                            </button>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -128,6 +137,56 @@ function copyToClipboard(text, event) {
     }).catch(err => {
         showToast('Failed to copy symbol', 'error');
         console.error('Failed to copy:', err);
+    });
+}
+
+function addToWatchlist(stock, btn) {
+    btn.disabled = true;
+    btn.innerText = 'Adding...';
+    fetch('/search/api/watchlist/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify(stock)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            btn.innerText = 'Added!';
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-success');
+            btn.disabled = true; // Keep disabled
+        } else if (data.message === "Already in watchlist") {
+            btn.innerText = 'Already in Watchlist';
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-info');
+            btn.disabled = true; // Keep disabled
+        } else {
+            btn.innerText = 'Error';
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-error');
+            alert('Failed to add to watchlist: ' + (data.error || 'Unknown error'));
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.innerText = 'Add';
+                btn.classList.remove('btn-error');
+                btn.classList.add('btn-primary');
+            }, 2000);
+        }
+    })
+    .catch(err => {
+        btn.innerText = 'Error';
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-error');
+        alert('Failed to add to watchlist: ' + err);
+        setTimeout(() => {
+            btn.disabled = false;
+            btn.innerText = 'Add';
+            btn.classList.remove('btn-error');
+            btn.classList.add('btn-primary');
+        }, 2000);
     });
 }
 

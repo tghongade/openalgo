@@ -1,0 +1,12 @@
+# Core scientific stack
+pandas
+numpy
+scikit-learn
+joblib
+matplotlib
+jupyter
+notebook
+glob2
+# Technical indicators
+# TA-Lib  # commented out due to install issues on Windows
+ta
