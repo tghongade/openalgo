@@ -180,19 +180,18 @@ def change_password():
 def logout():
     if session.get('logged_in'):
         username = session['user']
-        
         #writing to database      
         inserted_id = upsert_auth(username, "", "", revoke=True)
         if inserted_id is not None:
             print(f"Database Upserted record with ID: {inserted_id}")
+            print(f'[DEBUG] Session at logout (before clearing):', dict(session))
             print(f'Auth Revoked in the Database')
         else:
             print("Failed to upsert auth token")
-        
         # Remove tokens and user information from session
         session.pop('user', None)  # Remove 'user' from session if exists
         session.pop('broker', None)  # Remove 'user' from session if exists
         session.pop('logged_in', None)
-
+        print(f'[DEBUG] Session at logout (after clearing):', dict(session))
     # Redirect to login page after logout
     return redirect(url_for('auth.login'))

@@ -35,13 +35,16 @@ def set_session_login_time():
 
 def is_session_valid():
     """Check if the current session is valid"""
+    print("[DEBUG] Session contents at validation:", dict(session))
     if not session.get('logged_in'):
         logger.debug("Session invalid: 'logged_in' flag not set")
+        print("[DEBUG] Session invalid: 'logged_in' flag not set")
         return False
     
     # If no login time is set, consider session invalid
     if 'login_time' not in session:
         logger.debug("Session invalid: 'login_time' not in session")
+        print("[DEBUG] Session invalid: 'login_time' not in session")
         return False
         
     now_utc = datetime.now(pytz.timezone('UTC'))
@@ -49,20 +52,21 @@ def is_session_valid():
     
     # Parse login time
     login_time = datetime.fromisoformat(session['login_time'])
-    
-    # Get configured expiry time
     expiry_time = os.getenv('SESSION_EXPIRY_TIME', '03:00')
     hour, minute = map(int, expiry_time.split(':'))
     
     # Get today's expiry time
     daily_expiry = now_ist.replace(hour=hour, minute=minute, second=0, microsecond=0)
     
+    print(f"[DEBUG] Now IST: {now_ist}, Login Time: {login_time}, Daily Expiry: {daily_expiry}")
     # If current time is past expiry time and login was before expiry time
     if now_ist > daily_expiry and login_time < daily_expiry:
         logger.info(f"Session expired at {daily_expiry} IST")
+        print(f"[DEBUG] Session expired at {daily_expiry} IST")
         return False
     
     logger.debug(f"Session valid. Current time: {now_ist}, Login time: {login_time}, Daily expiry: {daily_expiry}")
+    print(f"[DEBUG] Session valid. Current time: {now_ist}, Login time: {login_time}, Daily expiry: {daily_expiry}")
     return True
 
 def check_session_validity(f):

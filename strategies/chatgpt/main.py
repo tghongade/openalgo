@@ -36,8 +36,8 @@ if not logger.handlers:
     logger.addHandler(ch)
 
 # Set broker API key directly for this script
-BROKER_API_KEY = "9c0e0c5af661612e8d52ce35064fffea44683c7cff941e5bc11fa533259c25e3"
-BROKER_API_SECRET = "BATJRCG452"
+BROKER_API_KEY = "adc647652067b73852f795ec0c5a887b2331fe4ce272045ccf7ec6383f100ea8"
+BROKER_API_SECRET = "WZMB62Q745"
 
 def is_friday_3pm_or_later(now):
     """Check if current time is Friday 3 PM or later"""
